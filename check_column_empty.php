@@ -2,6 +2,7 @@
 
 $filename = $argv[1];
 $column = $argv[2];
+$search = $argv[3];
 $row = 0;
 $emptyColumn = false;
 $columnIndex = null;
@@ -12,6 +13,12 @@ if (($handle = fopen($filename, "r")) !== FALSE) {
         if ($row === 1) {
             $columnIndex = array_keys($data, $column)[0];
             continue;
+        }
+        if ($search) {
+            if (false === strpos($data[$columnIndex], $search)) {
+                $row--;
+                continue;
+            }
         }
         echo $data[$columnIndex] . "<br />\n";
         $result[] = $data[$columnIndex];
